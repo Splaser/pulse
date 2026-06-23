@@ -64,7 +64,7 @@ The watt number is a **ceiling, not a target.** AutoTDP always uses the least po
 
 <br>
 
-<img src="docs/screenshots/autotdp.png" alt="AutoTDP panel" width="420">
+<div align="center"><img src="docs/screenshots/autotdp.png" alt="AutoTDP panel" width="640"></div>
 
 - **Turn it on, pick an FPS target, play.** With no per-app setup, AutoTDP becomes the default for any foreground game.
 - **Pick a mode for the moment:** *Efficient* for long battery sessions and emulators, *Smooth* for a demanding title where you want every frame, *Balanced* when you are not sure.
@@ -88,7 +88,7 @@ It runs everywhere — on the Android UI, in games, and during AutoTDP — so yo
 
 <br>
 
-<img src="docs/screenshots/fan.png" alt="Custom fan panel" width="420">
+<div align="center"><img src="docs/screenshots/fan.png" alt="Custom fan panel" width="640"></div>
 
 - **Most people want Hold Target Temp.** Set a target (e.g. 78-80 C) and forget it — the PI controller keeps the chip there with as little fan as possible.
 - **Keep the fan target at or above your AutoTDP mode's comfort point.** When AutoTDP is cooling with clocks, a slightly higher fan target lets the fan idle — quietest combo.
@@ -113,22 +113,19 @@ When you want to drive it yourself:
 
 Real-time CPU/GPU clocks, GPU load, battery, CPU/GPU temperatures, power draw, and a self-calibrating peak-draw estimate — every reading colour-coded from cool to hot. Flip on the **OSD overlay** and the stats (plus live **FPS** and a smoothed **battery-remaining** estimate) float over any game.
 
-<img src="docs/screenshots/hud.png" alt="Telemetry HUD" width="420">
+<div align="center"><img src="docs/screenshots/hud.png" alt="Telemetry HUD" width="640"></div>
 
 ### Joystick RGB
 
 Drive the joystick LEDs three ways: a dim **Battery** info-LED, a **Heat** info-LED that tracks SoC temperature, or a **Manual** per-stick colour picker. Brightness control included.
 
-<img src="docs/screenshots/rgb.png" alt="Joystick RGB picker" width="420">
+<div align="center"><img src="docs/screenshots/rgb.png" alt="Joystick RGB picker" width="640"></div>
 
 ### Profiles and automation
 
 Save, edit, delete, reorder, import, and export profiles. Reapply-on-boot, sleep-aware profile switching, and a Quick Settings tile that can cycle power tiers, open a quick dialog, or launch the app.
 
-<div align="center">
-<img src="docs/screenshots/profile-editor.png" alt="Profile editor" width="380">
-<img src="docs/screenshots/quick-settings-dialog.png" alt="Quick Settings dialog" width="380">
-</div>
+<!-- Screenshots welcome here: the profile editor and the Quick Settings tile dialog. -->
 
 ### Five animated themes
 
@@ -139,7 +136,7 @@ Save, edit, delete, reorder, import, and export profiles. Reapply-on-boot, sleep
 
 <br>
 
-<img src="docs/screenshots/themes.png" alt="PULSE themes" width="640">
+<div align="center"><img src="docs/screenshots/themes.png" alt="PULSE themes" width="640"></div>
 
 - **Signal / Crimson** — a drifting constellation telemetry field with travelling pulse rings.
 - **Cyberpunk** — a neon perspective grid with a CRT scanline sweep.
@@ -172,9 +169,7 @@ Requires Android 12+ (`minSdk 31`).
 
 ## Settings reference
 
-<div align="center">
-<img src="docs/screenshots/settings.png" alt="PULSE settings" width="420">
-</div>
+<!-- Screenshot welcome here: the settings screen. -->
 
 <details>
 <summary><b>AutoTDP settings</b></summary>
