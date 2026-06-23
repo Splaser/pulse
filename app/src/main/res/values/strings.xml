@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PULSE</string>
+    <string name="app_full_name">P.U.L.S.E.</string>
+    <string name="app_backronym">Performance Utility for Load and System Efficiency</string>
+    <string name="tile_label">PULSE Tuner</string>
+    <string name="tile_title">PULSE</string>
+    <string name="tile_state_manual">Manual</string>
+    <string name="tile_state_unavailable">Unavailable</string>
+</resources>
