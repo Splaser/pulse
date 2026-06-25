@@ -958,7 +958,7 @@ private fun wattLabel(w: Float): String = "%.1f".format(w).removeSuffix(".0")
 
 /**
  * AutoTDP master toggle. When on, PULSE dynamically trims the CPU first, then GPU, to hold each
- * foreground game's refresh-rate FPS (Smart fan, refresh rate untouched). It becomes the default
+ * foreground game's refresh-rate FPS while Custom fan can keep running. It becomes the default
  * for any game without its own per-app binding, so the manual tier/clock controls are locked.
  */
 @Composable
@@ -1008,12 +1008,14 @@ fun AutoTdpModule(
             Text(
                 text = if (enabled) {
                     "Automatically tunes the CPU and GPU clocks on the fly, aiming to hold each app's " +
-                        "frame rate at the lowest power, with the Smart fan curve enabled. The tier and " +
-                        "manual controls below are locked while AutoTDP is on. Per-app bindings still take " +
+                        "frame rate at the lowest power. Pair it with Custom fan below to keep your tuned " +
+                        "fan curve running while AutoTDP handles clocks. The tier and manual controls are " +
+                        "locked while AutoTDP is on. Per-app bindings still take " +
                         "priority, and a hand-tuned manual profile may still perform better in some games."
                 } else {
                     "Automatically tunes the CPU and GPU clocks on the fly to hold your FPS target at the " +
-                        "lowest power — games, emulators and even media — with the Smart fan curve and the " +
+                        "lowest power — games, emulators and even media. Custom fan remains available, " +
+                        "and the " +
                         "panel pinned to max refresh. Runs on any app except PULSE and the home screen; " +
                         "per-app bindings take priority."
                 },

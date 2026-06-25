@@ -168,7 +168,7 @@ class PerformanceRepository(
 
     suspend fun applyTier(tier: PowerTier): Result<ApplyOutcome> {
         if (!rootCommandRunner.isAvailable) {
-            return Result.failure(IllegalStateException("PServer not available"))
+            return Result.failure(IllegalStateException("Root access not available"))
         }
         val policies = resolvePolicies()
         if (policies.isEmpty()) {
@@ -198,7 +198,7 @@ class PerformanceRepository(
      */
     suspend fun restoreCustomValues(): Result<ApplyOutcome> {
         if (!rootCommandRunner.isAvailable) {
-            return Result.failure(IllegalStateException("PServer not available"))
+            return Result.failure(IllegalStateException("Root access not available"))
         }
         val policies = resolvePolicies()
         if (policies.isEmpty()) {
@@ -242,7 +242,7 @@ class PerformanceRepository(
     /** Applies a display profile (saved profile or Stock) by id — the tile/per-app entry point. */
     suspend fun applyDisplayProfileById(profileId: String): Result<ApplyOutcome> {
         if (!rootCommandRunner.isAvailable) {
-            return Result.failure(IllegalStateException("PServer not available"))
+            return Result.failure(IllegalStateException("Root access not available"))
         }
         val state = observeState().first()
         val profile = state.displayProfiles.firstOrNull { it.id == profileId }
@@ -258,7 +258,7 @@ class PerformanceRepository(
     /** Re-applies a raw frequency snapshot, e.g. restoring pre-launch state after a per-app switch. */
     suspend fun applyRawValues(values: Map<Int, Int>, appliedDisplayProfileId: String?): Result<ApplyOutcome> {
         if (!rootCommandRunner.isAvailable) {
-            return Result.failure(IllegalStateException("PServer not available"))
+            return Result.failure(IllegalStateException("Root access not available"))
         }
         val policies = resolvePolicies()
         if (policies.isEmpty()) {
@@ -363,7 +363,7 @@ class PerformanceRepository(
 
     suspend fun applySleepProfile(profileId: String): Result<ApplyOutcome> {
         if (!rootCommandRunner.isAvailable) {
-            return Result.failure(IllegalStateException("PServer not available"))
+            return Result.failure(IllegalStateException("Root access not available"))
         }
         val state = observeState().first()
         if (state.policies.isEmpty()) {
@@ -387,7 +387,7 @@ class PerformanceRepository(
 
     suspend fun restorePreSleepState(): Result<ApplyOutcome> {
         if (!rootCommandRunner.isAvailable) {
-            return Result.failure(IllegalStateException("PServer not available"))
+            return Result.failure(IllegalStateException("Root access not available"))
         }
         val policies = detector.detectPolicies()
         if (policies.isEmpty()) {
@@ -422,7 +422,7 @@ class PerformanceRepository(
 
     suspend fun applyPersistedLastValuesOnBoot(): Result<ApplyOutcome> {
         if (!rootCommandRunner.isAvailable) {
-            return Result.failure(IllegalStateException("PServer not available"))
+            return Result.failure(IllegalStateException("Root access not available"))
         }
         val policies = detector.detectPolicies()
         if (policies.isEmpty()) {

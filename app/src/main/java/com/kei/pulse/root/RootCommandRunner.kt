@@ -7,20 +7,20 @@ import kotlinx.coroutines.withContext
 
 class RootCommandRunner(
     private val context: Context,
-    private val rootExec: RootExec = RootExec(),
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
     val isAvailable: Boolean
-        get() = rootExec.pServerAvailable
+        get() = RootSupport.isAvailable
 
-    suspend fun executeScript(script: String): Result<String?> = withContext(dispatcher) {
-        runCatching {
-            RootSupport.runGeneratedScript(
-                context = context,
-                scriptName = "apply-frequencies.sh",
-                scriptContents = script,
-            )
+    suspend fun executeScript(script: String): Result<String?> =
+        withContext(dispatcher) {
+            runCatching {
+                RootSupport.runGeneratedScript(
+                    context = context,
+                    scriptName = "apply-frequencies.sh",
+                    scriptContents = script,
+                )
+            }
         }
-    }
 }

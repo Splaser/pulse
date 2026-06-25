@@ -173,7 +173,7 @@ fun MainTunerScreen(
                 LoadingClustersCard()
             } else if (!state.isPServerAvailable) {
                 Text(
-                    text = "Your device is not compatible with this app",
+                    text = "Root access is not available on this device",
                     style = MaterialTheme.typography.headlineSmall,
                     color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.SemiBold,
@@ -211,10 +211,10 @@ fun MainTunerScreen(
 
                 CurrentFrequenciesCard(state = state)
 
-                // AutoTDP manages the fan + governor + clocks itself, so only the refresh rate stays
-                // adjustable while it's on.
+                // AutoTDP manages governor + clocks, but the fan remains user-configurable so
+                // Custom fan curves can be paired with AutoTDP.
+                FanModule(currentMode = fanMode, onSelect = onSelectFanMode, editor = fanCurveEditor)
                 if (!autoTdpEnabled) {
-                    FanModule(currentMode = fanMode, onSelect = onSelectFanMode, editor = fanCurveEditor)
                     GovernorModule(current = governor, onSelect = onSelectGovernor)
                 }
 
@@ -579,7 +579,7 @@ private fun PServerStatusChip(isLinked: Boolean) {
                     .background(color, CircleShape),
             )
             Text(
-                text = if (isLinked) "PSERVER · LINKED · NO-ROOT" else "PSERVER UNAVAILABLE",
+                text = if (isLinked) "ROOT ACCESS · READY" else "ROOT ACCESS UNAVAILABLE",
                 style = MaterialTheme.typography.labelSmall,
                 color = color,
             )

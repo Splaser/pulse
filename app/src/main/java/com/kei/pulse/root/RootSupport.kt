@@ -7,18 +7,32 @@ import kotlin.concurrent.withLock
 
 object RootSupport {
 
-    // Process-wide serialization of PServer access. The binder cannot service overlapping
-    // transacts reliably, and several callers (per-app watcher apply, telemetry poll, tile,
-    // sleep monitor) hit it concurrently. Every PServer path — cat() reads and the
-    // runGeneratedScript apply pipeline — funnels through runRootCommand, so locking here
-    // serializes all of them at command granularity. Each command is short and all callers
-    // run on Dispatchers.IO, so a blocking lock is fine. runGeneratedScript does not lock
-    // itself, so there is no re-entrancy.
-    private val pServerLock = ReentrantLock()
+    // Keep one executor for the lifetime of the app process.
+    // This avoids repeatedly probing PServer and repeatedly running "su -c id".
+    private val rootExec: RootExec by lazy {
+        RootExec()
+    }
+
+    // Serialize privileged commands across PServer and su backends.
+    //
+    // PServer cannot reliably service overlapping Binder transactions.
+    // The lock also prevents concurrent profile scripts from interleaving sysfs
+    // writes when the su backend is active.
+    private val commandLock = ReentrantLock()
+
+    val isAvailable: Boolean
+        get() = rootExec.pServerAvailable || rootExec.suAvailable
+
+    val backendName: String
+        get() = when {
+            rootExec.suAvailable -> "Root (su)"
+            rootExec.pServerAvailable -> "PServer"
+            else -> "Unavailable"
+        }
 
     fun runRootCommand(command: String): String? {
-        return pServerLock.withLock {
-            RootExec().executeAsRoot(command).getOrNull()
+        return commandLock.withLock {
+            rootExec.executeAsRoot(command).getOrNull()
         }
     }
 
@@ -28,16 +42,22 @@ object RootSupport {
         scriptContents: String,
     ): String? {
         val scriptDir = File(context.filesDir, "root-scripts")
-        if (!scriptDir.exists()) {
-            scriptDir.mkdirs()
+
+        if (!scriptDir.exists() && !scriptDir.mkdirs()) {
+            return null
         }
 
         val scriptFile = File(scriptDir, scriptName)
+
         scriptFile.writeText(scriptContents)
         scriptFile.setReadable(true, false)
         scriptFile.setExecutable(true, false)
 
-        val command = "sh ${scriptFile.absolutePath}"
-        return runRootCommand(command)
+        val escapedPath = shellQuote(scriptFile.absolutePath)
+        return runRootCommand("sh $escapedPath")
+    }
+
+    private fun shellQuote(value: String): String {
+        return "'" + value.replace("'", "'\\''") + "'"
     }
 }
