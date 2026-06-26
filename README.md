@@ -292,6 +292,14 @@ Debug APK lands in `app/build/outputs/apk/debug/`. A signing config is picked up
 
 ---
 
+## Development and AI assistance
+
+PULSE is developed with substantial help from an AI coding assistant (Anthropic's Claude). A large share of the source code, and most of this README and the project's documentation, were written with that assistance under the maintainer's direction and review. Every change is built, unit-tested, and verified on real hardware before it ships.
+
+This is disclosed in the interest of transparency — if you're evaluating, contributing to, or forking PULSE, you should know how it is built.
+
+---
+
 ## License and Attribution
 
 Distributed under the **GNU General Public License v2.0** — see [LICENSE](LICENSE).
